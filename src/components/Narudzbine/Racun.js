@@ -38,8 +38,8 @@ getBillById(id) {
     render() {
         return (
         <div>
-                <h1>Podaci o racunu</h1>
-                <Table bordered striped style={{ marginTop: 5 }}>
+          <h1>Podaci o racunu</h1>
+          <Table bordered striped style={{ marginTop: 5 }}>
           <thead className="thead-dark">
             <tr>
               <th>Broj racuna</th>

@@ -25,6 +25,7 @@ class AddNarudzbina extends React.Component {
     }
 
     componentDidMount() {
+        this.check()
         this.getDostavljaci()
     }
 
@@ -39,6 +40,10 @@ class AddNarudzbina extends React.Component {
             console.log(error);
             alert('Error occured please try again!');
         });
+    }
+
+    check() {
+      {window.localStorage['jwt'] ? this.render() : this.props.history.push('/login')}
     }
 
     valueInputChanged(e) {
@@ -88,7 +93,6 @@ class AddNarudzbina extends React.Component {
             <Form.Control
               onChange={(event) => this.valueInputChanged(event)}
               name="broj"
-            //   value={this.state.narudzbina.brojNarudzbine}
               as="input"
             ></Form.Control>
           </Form.Group>
@@ -133,7 +137,6 @@ class AddNarudzbina extends React.Component {
             <Form.Control
               onChange={(event) => this.valueInputChanged(event)}
               name="deliveryId"
-            //   value={this.state.narudzbina.deliveryId}
               as="select"
             >
               <option value={-1}></option>

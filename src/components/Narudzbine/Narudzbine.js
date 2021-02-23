@@ -7,15 +7,6 @@ class Narudzbine extends React.Component {
     constructor(props) {
         super(props);
 
-        // let Narudzbina = {
-        //     brojNarudzbine: 0,
-        //     datum: '',
-        //     mestoIsporuke: '',
-        //     cena: 0.00,
-        //     opis: '',
-        //     deliveryId: -1,
-        // }
-
         this.state = {
             orders: [],
             pageNo: 0,
@@ -26,6 +17,7 @@ class Narudzbine extends React.Component {
     }
 
     componentDidMount() {
+        this.check()
         this.getDostavljaci()
         this.getNaruzbine(0)
     }
@@ -63,7 +55,7 @@ class Narudzbine extends React.Component {
             // handle success
             console.log(res);
            
-            alert('Bill was added successfully!');
+            alert('Racun je uspesno dodat!');
             this.props.history.push('/movies');
         })
         .catch(error => {
@@ -72,6 +64,10 @@ class Narudzbine extends React.Component {
             alert('Error occured please try again!');
          });
     }
+
+    goToEdit(id) {
+        this.props.history.push("/orders/edit/" + id);
+      }
 
 
     getDostavljaci() {
@@ -89,6 +85,10 @@ class Narudzbine extends React.Component {
 
     pretraga() {
         this.getNaruzbine(0)
+    }
+
+    check() {
+        {window.localStorage['jwt'] ? this.render() : this.props.history.push('/login')}
     }
 
     vidiRacun(id) {
@@ -110,18 +110,6 @@ class Narudzbine extends React.Component {
          });
     }
 
-    // valueInputChanged(e) {
-    //     let input = e.target;
-    
-    //     let name = input.name;
-    //     let value = input.value;
-    
-    //     let linija = this.state.linija;
-    //     linija[name] = value;
-    
-    //     this.setState({ linija: linija });
-    //   }
-
       pretragaInputChange(e) {
         let control = e.target;
 
@@ -134,18 +122,6 @@ class Narudzbine extends React.Component {
         this.setState({ pretraga: pretraga });
         this.pretraga();
       }
-
-    //  dostavljaciSelectionChanged(e){
-    //     // console.log(e);
-
-    //     let prevoznikId = e.target.value;
-    //     let prevoznik = this.state.dostavljaci.find((dostavljac) => dostavljac.id == deliveryId);
-
-    //     let linija = this.state.linija;
-    //     linija.prevoznik = prevoznik;
-
-    //     this.setState({linija: linija});
-    // }
 
 
     render() {
@@ -189,7 +165,7 @@ class Narudzbine extends React.Component {
                         <th>Cena</th>
                         <th>Opis</th>
                         <th>Dostavljac</th>
-                        <th colSpan={2}>Actions</th>
+                        <th colSpan={3}>Actions</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -224,6 +200,13 @@ class Narudzbine extends React.Component {
                                 style={{ marginLeft: 5 }}
                                 >
                                 Vidi racun
+                            </Button>
+                            <Button
+                                variant="success"
+                                onClick={() => this.goToEdit(narudzbina.id)}
+                                style={{ marginLeft: 5 }}
+                                >
+                                Izmeni narudzbinu
                             </Button>
                             </td>
                             </tr>

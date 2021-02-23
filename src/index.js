@@ -7,6 +7,7 @@ import Home from './components/Home';
 import {logout} from './services/auth'
 import Narudzbine from './components/Narudzbine/Narudzbine'
 import AddNarudzbina from './components/Narudzbine/AddNarudzbina'
+import EditNarudzbine from './components/Narudzbine/EditNarudzbina'
 import Racun from './components/Narudzbine/Racun'
 
 class App extends React.Component {
@@ -34,7 +35,7 @@ class App extends React.Component {
                         <Route exact path="/login" component={Login}/>
                         <Route exact path="/orders" component={Narudzbine} />
                         <Route exact path="/addOrder" component={AddNarudzbina} /> 
-                        {/* <Route exact path="/orders/edit/:id" component={EditNarudzbina} /> */}
+                        <Route exact path="/orders/edit/:id" component={EditNarudzbine} /> 
                         <Route exact path="/orders/racuni/:id" component={Racun} /> 
                     </Switch>
                     </Container>
