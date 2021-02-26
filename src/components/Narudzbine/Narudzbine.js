@@ -50,13 +50,13 @@ class Narudzbine extends React.Component {
     }
 
     doBill(id) {
-        DostavaAxios.post('/racuni', id)
+        DostavaAxios.post('/racuni/' + id)
         .then(res => {
             // handle success
             console.log(res);
            
             alert('Racun je uspesno dodat!');
-            this.props.history.push('/movies');
+            window.location.reload();
         })
         .catch(error => {
             // handle error
@@ -187,6 +187,7 @@ class Narudzbine extends React.Component {
                                 Delete
                              </Button>
                              <Button
+                                disabled={narudzbina.billId != null} 
                                 variant="info"
                                 onClick={() => this.doBill(narudzbina.id)}
                                 style={{ marginLeft: 5 }}
