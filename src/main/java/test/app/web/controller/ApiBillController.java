@@ -44,17 +44,20 @@ public class ApiBillController {
 		return new ResponseEntity<>(toDto.convert(b.get()), HttpStatus.OK);
 	}
 	
-	@RequestMapping(method = RequestMethod.POST, consumes = "application/json")
-	public ResponseEntity<BillDto> add(@Valid @RequestBody Long idNarudzbine ) {
+	@RequestMapping(value = "/{id}", method = RequestMethod.POST)
+	public ResponseEntity<BillDto> add(@PathVariable Long id) {
 		
-		Narudzbina narudzbina = os.getOne(idNarudzbine);
+		Narudzbina narudzbina = os.getOne(id);
 		Bill bill = new Bill();
 		bill.setNumber(narudzbina.getNumber());
 		bill.setFinalPrice(narudzbina.getPrice());
 		bill.setDate(LocalDate.now());
+		bill.setOrder(narudzbina);
 		
 		
 		Bill saved = bs.save(bill);
+		narudzbina.setBill(saved);
+		os.save(narudzbina);
 
 		return new ResponseEntity<>(toDto.convert(saved), HttpStatus.CREATED);
 	}

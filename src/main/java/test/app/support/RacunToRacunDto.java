@@ -16,7 +16,9 @@ public class RacunToRacunDto implements Converter<Bill, BillDto>{
 		dto.setDate(b.getDate());
 		dto.setFinalPrice(b.getFinalPrice());
 		dto.setNumber(b.getNumber());
+		if(b.getOrder() != null) {
 		dto.setOrderId(b.getOrder().getId());
+		}
 		
 		return dto;
 	}
